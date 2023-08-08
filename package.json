@@ -1,5 +1,9 @@
 {
   "dependencies": {
-    "node-sheets": "^1.2.0"
+    "@google-cloud/local-auth": "^2.1.0",
+    "google-spreadsheet": "^4.0.2",
+    "googleapis": "^105.0.0",
+    "node-sheets": "^1.2.0",
+    "sheetdb-js": "^1.0.3"
   }
 }

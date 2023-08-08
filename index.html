@@ -33,198 +33,26 @@
 
   </head>
   <body>
-    <p>Sheets API Quickstart</p>
+<button></button>
+    
 
-    <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
-    <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
+<script src="//sheetdb.io/api/js"></script>
+<script>
+    let url = 'https://sheetdb.io/api/v1/u9kh8zi2i3mpb'
 
-    <pre id="content" style="white-space: pre-wrap;"></pre>
-
-    <script type="text/javascript">
-window.API_KEY =       'AIzaSyDERF3u4eaoQ64r-daFiszTN_Bg90wHTzg';
-window.CLIENT_ID = '137652990869-7fpfbjnlsidolcmkftic4i7n643eggrs.apps.googleusercontent.com'
-let API_KEY = window.API_KEY
-let CLIENT_ID = window.CLIENT_ID
-
-gapi.load("auth2:client:signin2", () => {
-const auth = gapi.auth2.init({
-        clientId:window.CLIENT_ID,
-             apiKey: window.API_KEY,
-scope: 'https://www.googleapis.com/auth/spreadsheets',
-        discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
-        cookiePolicy: "single_host_origin"
-      });
-  
-      auth.currentUser.listen((user) => {
-        window.user = user;
-        window.shit = user;
-        user.getBasicProfile()
-        //getAuthResponse
-      });
-      gapi.client.load("https://sheets.googleapis.com/$discovery/rest?version=v4")
-      const getRange = async (range, spreadsheetId) => {
-        try {
-            if (Array.isArray(range)) {
-            const { result } = await gapi.client.sheets.spreadsheets.values.batchGet({
-                spreadsheetId,
-                ranges: range,
-                valueRenderOption
-            });
-            return result.valueRanges.reduce(
-                (result, { range, values }) => ({
-                ...result,
-                [range]: rangeToObject(values)
-                }),
-                {}
-            );
-            }
-            const { result } = await gapi.client.sheets.spreadsheets.values.get({
-            spreadsheetId,
-            range,
-            valueRenderOption
-            });
-            return rangeToObject(result.values);
-        } catch (error) {
-            console.error(error.result.error);
-            return new Error(error.result.error.message);
-        }
-    }
-    const updateRange = async (range, _values, spreadsheetId) => {
-    try {
-        const values = objectToRange(_values);
-        const { result } = await gapi.client.sheets.spreadsheets.values.update({
-        spreadsheetId,
-        range,
-        valueInputOption,
-        responseValueRenderOption,
-        resource: { values }
-        });
-    } catch (error) {
-        console.error(error.result.error);
-        return new Error(error.result.error.message);
-    }
-    }
-
-    window.updateRange = updateRange
-    window.getRange = updateRange
-
-})
-function oauthSignIn() {
-  // Google's OAuth 2.0 endpoint for requesting an access token
-  var oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
-
-  // Create <form> element to submit parameters to OAuth 2.0 endpoint.
-  var form = document.createElement('form');
-  form.setAttribute('method', 'GET'); // Send as a GET request.
-  form.setAttribute('action', oauth2Endpoint);
-
-  // Parameters to pass to OAuth 2.0 endpoint.
-  var params = {'client_id': 'YOUR_CLIENT_ID',
-                'redirect_uri': 'YOUR_REDIRECT_URI',
-                'response_type': 'token',
-                'scope': 'https://www.googleapis.com/auth/drive.metadata.readonly',
-                'include_granted_scopes': 'true',
-                'state': 'pass-through value'};
-
-  // Add form parameters as hidden input values.
-  for (var p in params) {
-    var input = document.createElement('input');
-    input.setAttribute('type', 'hidden');
-    input.setAttribute('name', p);
-    input.setAttribute('value', params[p]);
-    form.appendChild(input);
-  }
-
-  // Add form to page and submit it to open the OAuth 2.0 endpoint.
-  document.body.appendChild(form);
-  form.submit();
-}
-// console.log(gapi)
-//                             //'137652990869-dtqu4v7kpnnt2c478j6jq9vi5ejhnj2p.apps.googleusercontent.com';
-                      
-                      
-//                             // Discovery doc URL for APIs used by the quickstart
-//                             const DISCOVERY_DOC = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
-                      
-//                             // Authorization scopes required by the API; multiple scopes can be
-//                             // included, separated by spaces.
-//                             const SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly';
-                      
-                      
-                          
+    url = 'https://sheetdb.io/api/v1/u9kh8zi2i3mpb'
+SheetDB.read(url, {sheet: 'Sheet1'}).then(function(result){
+  console.log(result);
+}, function(error){
+  console.log(error);
+});
 
 
-// function initClient() {
-//     gapi.client.init({
-//         apiKey: API_KEY,
-//         clientId: CLIENT_ID,
-//         scope: 'https://www.googleapis.com/auth/spreadsheets',
-//         discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
-//     }).then(() => {
-//         // Ensure the user is authenticated
-//         return gapi.auth2.getAuthInstance().signIn();
-//     }).then(updateSheet);
-
-
-
-
-// }
-
-// function updateSheet(spreadsheetId, range, callback) {
-//     console.log('update sheet')
-//   try {
-//     gapi.client.sheets.spreadsheets.values.get({
-//       spreadsheetId: spreadsheetId,
-//       range: range,
-//     }).then((response) => {
-//       const result = response.result;
-//       const numRows = result.values ? result.values.length : 0;
-//       console.log(`${numRows} rows retrieved.`);
-//       if (callback) callback(response);
-//     });
-//   } catch (err) {
-//     document.getElementById('content').innerText = err.message;
-//     return;
-//   }
-// }
-
-// gapi.load('client', initClient);
-
-
-      /* exported gapiLoaded */
-      /* exported gisLoaded */
-      /* exported handleAuthClick */
-      /* exported handleSignoutClick */
-
-      // TODO(developer): Set to client ID and API key from the Developer Console
-    //   const CLIENT_ID = '113275166425662578233';
-    //   const API_KEY = 'a7a65d61bcae7c4a1bfaf0129c17f38a6cc84a47'; //service
-
-     
-//     gisLoaded()
-//     gapiLoaded()
-
-//     function getValues(spreadsheetId, range, callback) {
-//   try {
-//     gapi.client.sheets.spreadsheets.values.get({
-//       spreadsheetId: spreadsheetId,
-//       range: range,
-//     }).then((response) => {
-//       const result = response.result;
-//       const numRows = result.values ? result.values.length : 0;
-//       console.log(`${numRows} rows retrieved.`);
-//       if (callback) callback(response);
-//     });
-//   } catch (err) {
-//     document.getElementById('content').innerText = err.message;
-//     return;
-//   }
-// }
-
-   
-
-    </script>
-
-<script></script>
+// SheetDB.write(url, { sheet: 'Sheet2', data: {player: 'Test', score: 41} }).then(function(result){
+//   console.log(result);
+// }, function(error){
+//   console.log(error);
+// });
+</script>
   </body>
 </html>
