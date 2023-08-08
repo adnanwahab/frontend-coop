@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "node-sheets": "^1.2.0"
+  }
+}
