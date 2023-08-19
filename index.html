@@ -34,18 +34,27 @@
   </head>
   <body>
 <button></button>
-    
-<a link href="">kara oke</a>
-<a link href="">media server with quote matching</a>
-<a link href="">humor analysis of tv shows </a>
-<a link href=""> webRTC mmo starcraft </a>
+<iframe width="640" height="360" frameborder="0" src="https://www.shadertoy.com/embed/dlScDy?gui=true&t=10&paused=true&muted=false" allowfullscreen></iframe>
+<ul>
+  <li><a link href="">kara oke</a>
+  <li><a link href="">media server with quote matching</a>
+    <li><a link href="">humor analysis of tv shows </a>
+      <li><a link href="">Make a multiplayer game - physics -rotate the world to move sphere around using new physics module rapier </a>
+
+        <li><a link href=""> </a>
+</ul>
 
 
-
-<p>1. world peace 2. ocean cities</p>
+<p>1. blue biotech 2. ocean cities</p>
 <label>add a suggestion</label><input type="text">
 <script> 
 
+document.querySelector('input').addEventListener('keydown', function (e) {
+  let sendText = e.which
+  if (sendText !== 13 ) return;
+  document.querySelector('ul').innerHTML += `<li>${e.target.value}</li>`
+  e.target.value = ''
+})
   document.querySelector('button').addEventListener('click', function () {
     upvote()
   })
@@ -54,5 +63,4 @@
     fetch('./hello-world/')
   }
 </script>
-  </body>
 </html>
